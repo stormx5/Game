@@ -63,7 +63,21 @@ public class game {
 	}
 	static boolean IsGoal(char [][] board)
 	{
-		
+		int x = 0; int o = 0;
+		for(int i = 0 ; i < 8; i ++)
+		{
+			for(int k = 0 ; k < 8 ; k++)
+			{
+				if(board[k][i] == 'X' )
+				{
+					
+				}
+				else if(board[k][i] == 'O')
+				{
+					
+				}
+			}
+		}
 		return true;
 	}
 	static Node GetChildren(char turn)
