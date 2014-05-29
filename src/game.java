@@ -1,12 +1,16 @@
 import java.io.*;
 import java.util.*;
+
 class Node{
 	char board[][] = new char[8][8];
+	int evaluation_score;
+	String str_board = "";
 	
 }
 public class game {
 	static void main(String [] args)
 	{
+		ArrayList<HashMap<String, Node>> Tree = new ArrayList<HashMap<String,Node>>();
 		int duartion;
 		System.out.println("Please Enter the Duration between Each Move");
 		Scanner s = new Scanner(System.in);
