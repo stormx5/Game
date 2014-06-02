@@ -83,6 +83,8 @@ public class game {
 				if(board[i][j] == 'O') eval = eval + FindAdjacent(i, j, board);
 			}
 		}
+		
+		eval = eval + IsGoal(board); //check if goal state or not
 		return eval;
 	}
 	
@@ -120,6 +122,7 @@ public class game {
 			else if(board[row][i] == 'O') score++;
 			else if(board[row][i] == 'X') score--;
 			
+			//check diagonal for pieces
 			if(diagonalUp > 0)
 			{
 				if(board[diagonalUp][i] == 'O') score++;
@@ -161,7 +164,7 @@ public class game {
 		}
 		return score;
 	}
-	static boolean IsGoal(char [][] board)
+	static int IsGoal(char [][] board)
 	{
 		int x = 0; int o = 0;
 		for(int i = 0 ; i < 8; i ++)
