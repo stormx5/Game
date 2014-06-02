@@ -65,6 +65,102 @@ public class game {
 		}
 		
 	}
+	
+	//evaluation function
+	static int evaluation(char [][] board)
+	{
+		int eval = 0;
+		for(int i = 0; i < 8; i++)
+		{
+			for(int j = 0; j < 8; j++)
+			{
+				//we want the middle, so increase the score as you go through the mid
+				//decrease when mid is reached
+				if(i < 3 && j < 3) eval++;
+				else eval--;
+				
+				//evaluates whether our piece is desirable in that place or not
+				if(board[i][j] == 'O') eval = eval + FindAdjacent(i, j, board);
+			}
+		}
+		return eval;
+	}
+	
+	//returns a value depending on how many and which pieces are next to our piece
+	//if O is next to it, +1. If X is next to it, -1
+	//Only checks the next 4 adjacent
+	static int FindAdjacent(int row, int column, char[][] board)
+	{
+		int score = 1;
+		int diagonalUp = 0; //for checking up diagonal
+		int diagonalDown = 0; //for checking down diagonal
+		
+		//checks the north of the piece
+		for(int i = row-1; i > row-4; i++)
+		{
+			if(i < 0) break;
+			else if(board[i][column] == 'O') score++;
+			else if(board[i][column] == 'X') score--;
+		}
+		
+		//checks the south of the piece
+		for(int i = row+1; i < row+4; i++)
+		{
+			if(i > 7) break;
+			else if(board[i][column] == 'O') score++;
+			else if(board[i][column] == 'X') score--;
+		}
+		
+		//checks the left
+		diagonalUp = row;
+		diagonalDown = row;
+		for(int i = column-1; i < column-4; i++)
+		{
+			if(i < 0) break;
+			else if(board[row][i] == 'O') score++;
+			else if(board[row][i] == 'X') score--;
+			
+			if(diagonalUp > 0)
+			{
+				if(board[diagonalUp][i] == 'O') score++;
+				else if(board[diagonalUp][i] == 'X') score--;
+				diagonalUp--;
+			}
+			
+			if(diagonalDown < 7)
+			{
+				if(board[diagonalDown][i] == 'O') score++;
+				else if(board[diagonalDown][i] == 'X') score--;
+				diagonalDown++;
+			}
+		}
+		
+		//checks the right
+		diagonalUp = row;
+		diagonalDown = row;
+		for(int i = column+1; i < column+4; i++)
+		{
+			if(i < 0) break;
+			else if(board[row][i] == 'O') score++;
+			else if(board[row][i] == 'X') score--;
+					
+			//check diagonal direction for pieces
+			if(diagonalUp > 0)
+			{
+				if(board[diagonalUp][i] == 'O') score++;
+				else if(board[diagonalUp][i] == 'X') score--;
+				diagonalUp--;
+			}
+			
+			if(diagonalDown < 7)
+			{
+				if(board[diagonalDown][i] == 'O') score++;
+				else if(board[diagonalDown][i] == 'X') score--;
+				diagonalDown++;
+			}
+		}
+		return score;
+	}
 	static boolean IsGoal(char [][] board)
 	{
 		int x = 0; int o = 0;
